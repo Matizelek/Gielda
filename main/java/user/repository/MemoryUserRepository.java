@@ -16,4 +16,9 @@ public class MemoryUserRepository implements UserRepository {
     public List<User> getUsers() {
         return users;
     }
+    
+    @Override
+    public void addUser(String hashedPassword, String userName) {
+    	 users.add(new User(hashedPassword, userName));
+    }
 }
