@@ -1,12 +1,12 @@
-package RegisterTest;
+package registerTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import Register.BadDataException;
-import Register.RegisterModel;
+import register.BadDataException;
+import register.model.RegisterModel;
 import user.User;
 import user.repository.MemoryUserRepository;
 import user.repository.UserRepository;
@@ -19,7 +19,7 @@ public class RegisterModelTest {
 		UserRepository userRepository = new MemoryUserRepository(testUsers);
 		RegisterModel registerTest = new RegisterModel(userRepository);
 		try {
-			userRepository = registerTest.register("dada", "dada", "test");
+			registerTest.register("dada", "dada", "test");
 			assert(true);
 		} catch (BadDataException e) {
 			e.printStackTrace();
@@ -33,7 +33,7 @@ public class RegisterModelTest {
 		UserRepository userRepository = new MemoryUserRepository(testUsers);
 		RegisterModel registerTest = new RegisterModel(userRepository);
 		try {
-			userRepository = registerTest.register("dada", "mama", "test");
+			 registerTest.register("dada", "mama", "test");
 			assert(false);
 		} catch (BadDataException e) {
 			e.printStackTrace();
@@ -47,8 +47,8 @@ public class RegisterModelTest {
 		UserRepository userRepository = new MemoryUserRepository(testUsers);
 		RegisterModel registerTest = new RegisterModel(userRepository);
 		try {
-			userRepository = registerTest.register("dada", "dada", "test");
-			userRepository = registerTest.register("dada", "dada", "test2");
+			registerTest.register("dada", "dada", "test");
+			registerTest.register("dada", "dada", "test2");
 			assert(true);
 		} catch (BadDataException e) {
 			e.printStackTrace();
@@ -62,8 +62,8 @@ public class RegisterModelTest {
 		UserRepository userRepository = new MemoryUserRepository(testUsers);
 		RegisterModel registerTest = new RegisterModel(userRepository);
 		try {
-			userRepository = registerTest.register("dada", "dada", "test");
-			userRepository = registerTest.register("dada", "dada", "test");
+			registerTest.register("dada", "dada", "test");
+			registerTest.register("dada", "dada", "test");
 			assert(false);
 		} catch (BadDataException e) {
 			e.printStackTrace();

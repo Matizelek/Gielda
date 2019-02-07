@@ -3,7 +3,7 @@ package loginModel;
 import hasher.PasswordHasher;
 import hasher.SHAPasswordHasher;
 import login.BadCredentialsException;
-import login.LoginModel;
+import login.model.LoginModel;
 import org.junit.Test;
 import user.User;
 import user.repository.MemoryUserRepository;

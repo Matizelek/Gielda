@@ -1,6 +1,7 @@
-package login;
+package login.model;
 
 import hasher.PasswordHasher;
+import login.BadCredentialsException;
 import user.User;
 import user.repository.UserRepository;
 

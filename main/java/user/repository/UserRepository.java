@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserRepository {
     List<User> getUsers();
-    void addUser(String hashedpassword, String userName);
+    User addUser(String hashedPassword, String userName);
 }
