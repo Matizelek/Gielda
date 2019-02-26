@@ -45,6 +45,7 @@ public class LoginModel {
         boolean contains = false;
         for (User user : users) {
             contains = user.getUsername().equals(username);
+            if(contains) return contains;
         }
         return contains;
     }

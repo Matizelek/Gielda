@@ -1,4 +1,4 @@
-package loginModel;
+package loginTest;
 
 import hasher.PasswordHasher;
 import hasher.SHAPasswordHasher;
