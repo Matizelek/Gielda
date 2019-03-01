@@ -18,7 +18,7 @@ public class RegisterPresenterTest {
     public void errorShouldBeCalledOnView() {
 
         RegisterView mockView = Mockito.mock(RegisterView.class);
-        UserRepository repository = new MemoryUserRepository(new ArrayList<>());
+        UserRepository repository = new MemoryUserRepository(new ArrayList<>(),new ArrayList<>());
         RegisterPresenter presenter = new RegisterPresenterImpl(mockView, repository);
 
         presenter.onConfirm("abc@gmail.com", "blabla", "blablabla");
@@ -32,7 +32,7 @@ public class RegisterPresenterTest {
 
 
         RegisterView mockView = Mockito.mock(RegisterView.class);
-        UserRepository repository = new MemoryUserRepository(new ArrayList<>());
+        UserRepository repository = new MemoryUserRepository(new ArrayList<>(),new ArrayList<>());
         RegisterPresenter presenter = new RegisterPresenterImpl(mockView, repository);
 
         presenter.onLoginTextChanged("rafal.ka@gmail.com");
@@ -45,7 +45,7 @@ public class RegisterPresenterTest {
     public void wrongEmailShouldBeCalledOnView() {
 
         RegisterView mockView = Mockito.mock(RegisterView.class);
-        UserRepository repository = new MemoryUserRepository(new ArrayList<>());
+        UserRepository repository = new MemoryUserRepository(new ArrayList<>(),new ArrayList<>());
 
         RegisterPresenter presenter = new RegisterPresenterImpl(mockView,repository);
 
@@ -58,7 +58,7 @@ public class RegisterPresenterTest {
     @Test
     public void successShouldBeCalledOnView() {
         RegisterView mockView = Mockito.mock(RegisterView.class);
-        UserRepository repository = new MemoryUserRepository(new ArrayList<>());
+        UserRepository repository = new MemoryUserRepository(new ArrayList<>(),new ArrayList<>());
         RegisterPresenter presenter = new RegisterPresenterImpl(mockView, repository);
 
         presenter.onConfirm("rafal.ka@gmail.com", "blabla", "blabla");

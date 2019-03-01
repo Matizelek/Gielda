@@ -5,13 +5,21 @@ public class BadCredentialsException extends Exception {
 
     private String message;
 
-    public BadCredentialsException(boolean wrongPassword) {
+    private BadCredentialsException(boolean wrongPassword) {
         this.wrongPassword = wrongPassword;
         if (wrongPassword) {
             message = "Niepoprawne hasło";
         } else {
             message = "Nie znaleziono użytkownika";
         }
+    }
+
+    public static BadCredentialsException wrongPassword(){
+        return new BadCredentialsException(true);
+    }
+
+    public static BadCredentialsException wrongUsername(){
+        return new BadCredentialsException(false);
     }
 
     @Override

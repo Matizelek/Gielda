@@ -7,15 +7,15 @@ import java.util.Objects;
 public class User {
     private final String hashedPassword;
     private final String username;
+    private final int id;
 
-    public User(String hashedPassword, String username) {
+    public User(String hashedPassword, String username, int id) {
         this.hashedPassword = hashedPassword;
         this.username = username;
+        this.id = id;
     }
 
-    public static User withPlainPassword(String plainPassword, String username, PasswordHasher hasher) {
-        return new User(hasher.hashPassword(plainPassword),username);
-    }
+
 
     public String getHashedPassword() {
         return hashedPassword;

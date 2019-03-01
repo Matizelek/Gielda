@@ -6,6 +6,7 @@ import user.User;
 import user.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class LoginModel {
 
@@ -18,36 +19,28 @@ public class LoginModel {
     }
 
     public User login(String username, String password) throws BadCredentialsException {
-        List<User> users = userRepository.getUsers();
-        if (checkUsername(username, users)) {
-            String hashed = hasher.hashPassword(password);
-            boolean passwordResult = checkHashedPassword(hashed, users);
+
+        Optional<User> foundUser = userRepository.getUserByName(username);
+
+        if (foundUser.isPresent()) {
+            User user = foundUser.get();
+            boolean passwordResult = checkPassword(password, user);
+
             if (passwordResult) {
-                return new User(hashed, username);
-            } else
-                throw new BadCredentialsException(true);
+                return user;
+            } else {
+                throw BadCredentialsException.wrongPassword();
+            }
+
         } else {
-            throw new BadCredentialsException(false);
+            throw BadCredentialsException.wrongUsername();
         }
+
     }
 
-    private boolean checkHashedPassword(String hashed, List<User> users) {
-        boolean contains = false;
-        for (User user : users) {
-            contains = user.getHashedPassword().equals(hashed);
-            if (contains) break;
-        }
-        return contains;
-    }
-
-
-    private boolean checkUsername(String username, List<User> users) {
-        boolean contains = false;
-        for (User user : users) {
-            contains = user.getUsername().equals(username);
-            if(contains) return contains;
-        }
-        return contains;
+    private boolean checkPassword(String password, User user) {
+        String hashed = hasher.hashPassword(password);
+        return user.getHashedPassword().equals(hashed);
     }
 
 }

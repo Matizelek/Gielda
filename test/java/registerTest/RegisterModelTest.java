@@ -3,6 +3,7 @@ package registerTest;
 import java.util.ArrayList;
 import java.util.List;
 
+import hasher.SHAPasswordHasher;
 import org.junit.Test;
 
 import register.BadDataException;
@@ -16,8 +17,8 @@ public class RegisterModelTest {
 	@Test
 	public void userShouldBeRegister() {
 		List<User> testUsers = new ArrayList<>();
-		UserRepository userRepository = new MemoryUserRepository(testUsers);
-		RegisterModel registerTest = new RegisterModel(userRepository);
+		UserRepository userRepository = new MemoryUserRepository(testUsers,new ArrayList<>());
+		RegisterModel registerTest = new RegisterModel(new SHAPasswordHasher(),userRepository);
 		try {
 			registerTest.register("dada", "dada", "test");
 			assert(true);
@@ -30,8 +31,8 @@ public class RegisterModelTest {
 	@Test
 	public void userRegisterShouldBeWrong() {
 		List<User> testUsers = new ArrayList<>();
-		UserRepository userRepository = new MemoryUserRepository(testUsers);
-		RegisterModel registerTest = new RegisterModel(userRepository);
+		UserRepository userRepository = new MemoryUserRepository(testUsers,new ArrayList<>());
+		RegisterModel registerTest = new RegisterModel(new SHAPasswordHasher(),userRepository);
 		try {
 			 registerTest.register("dada", "mama", "test");
 			assert(false);
@@ -44,8 +45,8 @@ public class RegisterModelTest {
 	@Test
 	public void userRegisterLoginShouldBeCorrect() {
 		List<User> testUsers = new ArrayList<>();
-		UserRepository userRepository = new MemoryUserRepository(testUsers);
-		RegisterModel registerTest = new RegisterModel(userRepository);
+		UserRepository userRepository = new MemoryUserRepository(testUsers,new ArrayList<>());
+		RegisterModel registerTest = new RegisterModel(new SHAPasswordHasher(),userRepository);
 		try {
 			registerTest.register("dada", "dada", "test");
 			registerTest.register("dada", "dada", "test2");
@@ -59,8 +60,8 @@ public class RegisterModelTest {
 	@Test
 	public void userRegisterLoginShouldBeWrong() {
 		List<User> testUsers = new ArrayList<>();
-		UserRepository userRepository = new MemoryUserRepository(testUsers);
-		RegisterModel registerTest = new RegisterModel(userRepository);
+		UserRepository userRepository = new MemoryUserRepository(testUsers,new ArrayList<>());
+		RegisterModel registerTest = new RegisterModel(new SHAPasswordHasher(),userRepository);
 		try {
 			registerTest.register("dada", "dada", "test");
 			registerTest.register("dada", "dada", "test");

@@ -1,15 +1,13 @@
 package register.presenter;
 
 import email.EmailValidator;
+import hasher.SHAPasswordHasher;
 import register.BadDataException;
 import register.model.RegisterModel;
 import register.resources.StringResources;
 import register.view.RegisterView;
 import user.User;
-import user.repository.MemoryUserRepository;
 import user.repository.UserRepository;
-
-import java.util.ArrayList;
 
 public class RegisterPresenterImpl implements RegisterPresenter {
 
@@ -19,9 +17,9 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     final private EmailValidator emailValidator;
 
 
-    public RegisterPresenterImpl(RegisterView registerView,UserRepository repository) {
+    public RegisterPresenterImpl(RegisterView registerView, UserRepository repository) {
         this.registerView = registerView;
-        model = new RegisterModel(repository);
+        model = new RegisterModel(new SHAPasswordHasher(), repository);
         emailValidator = new EmailValidator();
     }
 
@@ -30,23 +28,21 @@ public class RegisterPresenterImpl implements RegisterPresenter {
     public void onConfirm(String login, String password, String repeatPassword) {
 
 
+        if (emailValidator.validate(login)) {
 
-            if (emailValidator.validate(login)) {
-
-                try {
-                    User user = model.register(password, repeatPassword, login);
-                    registerView.onRegisterSuccess(user);
-                } catch (BadDataException e) {
-                    e.printStackTrace();
-                    if(e.isWrongPassword()){
-                        registerView.showError(StringResources.passwordArentTheSameError);
-                    }
+            try {
+                User user = model.register(password, repeatPassword, login);
+                registerView.onRegisterSuccess(user);
+            } catch (BadDataException e) {
+                e.printStackTrace();
+                if (e.isRepeatPasswordIncorrect()) {
+                    registerView.showError(StringResources.passwordArentTheSameError);
                 }
-
             }
 
         }
 
+    }
 
 
     @Override
