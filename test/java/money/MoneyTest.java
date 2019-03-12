@@ -78,5 +78,23 @@ public class MoneyTest {
 
         assertThat(newMoney.getCount()).isEqualTo(-30);
     }
+    
+    @Test
+    public void after_multiply_should_return_0_40() {
+        Money money = new Money(0.20);
+
+        Money newMoney = money.multiply(2d);
+
+        assertThat(newMoney.getCount()).isEqualTo(40);
+    }
+    
+    @Test
+    public void after_divide_should_return_0_40() {
+        Money money = new Money(0.80);
+
+        Money newMoney = money.divide(2d);
+
+        assertThat(newMoney.getCount()).isEqualTo(40);
+    }
 
 }

@@ -11,8 +11,11 @@ public class Money {
         if (splitted.length > 1 && splitted[1].length() > 2) {
             throw new IllegalArgumentException();
         }
-
         count = (int) (moneyValue * 100);
+    }
+    
+    public Money(long moneyValue) {
+        count = (int) (moneyValue);
     }
 
     public Money(int count) {
@@ -39,7 +42,14 @@ public class Money {
     public Money minus(Money money2) {
         return new Money(count-money2.count);
     }
+    
+    public Money multiply(Double multiplier) {
+    	return new Money(Math.round(count*multiplier));
+    }
 
+    public Money divide(Double divisor) {
+    	return new Money(Math.round(count/divisor));
+    }
 
     public int getCount() {
         return count;
