@@ -2,7 +2,7 @@ package money;
 
 public class Money {
 
-   final private int count;
+   final private long count;
 
     public Money(double moneyValue) {
 
@@ -11,23 +11,20 @@ public class Money {
         if (splitted.length > 1 && splitted[1].length() > 2) {
             throw new IllegalArgumentException();
         }
-        count = (int) (moneyValue * 100);
+        count = (long) (moneyValue * 100);
     }
     
     public Money(long moneyValue) {
-        count = (int) (moneyValue);
+        count = moneyValue;
     }
 
-    public Money(int count) {
-        this.count = count;
-    }
 
 
     @Override
     public String toString() {
 
-        int full = count / 100;
-        int partial = count - (full * 100);
+        long full = count / 100;
+        long partial = count - (full * 100);
         String partialString = String.valueOf(Math.abs(partial));
         if (partialString.length() == 1)
             partialString = "0" + partialString;
@@ -51,7 +48,7 @@ public class Money {
     	return new Money(Math.round(count/divisor));
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 }

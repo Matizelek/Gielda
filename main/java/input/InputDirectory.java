@@ -11,14 +11,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import exchengeDate.ExchengeDate;
-import exchengeDate.ExchengeDateRepository;
+import time.exchangeDate.ExchangeDate;
+import time.exchangeDate.ExchengeDateRepository;
 
 public class InputDirectory {
 	
 	private String directory = ".//csv";
 	private ArrayList<String> filesNames =new ArrayList<String>();
-	private List<ExchengeDate> datyGieldowe = new ArrayList<>();
+	private List<ExchangeDate> datyGieldowe = new ArrayList<>();
 	final private Pattern pattern = Pattern.compile("((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])_akcje\\.csv");
 
 	public InputDirectory(){
@@ -49,7 +49,7 @@ public class InputDirectory {
 			
 			for (String s : filesNames) {
 				String[] parts = s.split("_");
-				datyGieldowe.add(new ExchengeDate(parts[0]));
+				datyGieldowe.add(new ExchangeDate(parts[0]));
 			}
 			repository = new ExchengeDateRepository(datyGieldowe);
 			
@@ -64,7 +64,7 @@ public class InputDirectory {
 		return repository;
 	}
 	
-	private long obliczanieZakresu(List<ExchengeDate> datyGieldowe) {
+	private long obliczanieZakresu(List<ExchangeDate> datyGieldowe) {
 		long diff = datyGieldowe.get(datyGieldowe.size()-1).getDate().getTime() - datyGieldowe.get(0).getDate().getTime();
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
