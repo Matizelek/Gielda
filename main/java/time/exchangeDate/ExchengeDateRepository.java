@@ -1,12 +1,13 @@
 package time.exchangeDate;
 
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class ExchengeDateRepository {
+public class ExchengeDateRepository implements DateRepository{
 
     private final List<ExchangeDatePair> exchangeDatePairs;
     private int dateRange = 0;
@@ -38,14 +39,17 @@ public class ExchengeDateRepository {
         }
     }
 
+    @Override
     public int getDateRepositoryRange() {
         return dateRange;
     }
 
+    @Override
     public int getDatesCount() {
         return size;
     }
 
+    @Override
     public String getDetails() {
         String datails = "Zawartosc repository:\n"
                 + "Data Poczatkowa: " + exchangeDatePairs.get(0) + "\n"
@@ -63,17 +67,12 @@ public class ExchengeDateRepository {
         return datails;
     }
 
+    @Override
     public int getGapsCount() {
         return gapsCount;
     }
-
-
-    /* public String getGapsString() {
-         return exchangeDatePairs.stream().map(e -> e.getDifferenceBetweenDates() > 1 ?
-                 "\tMiedzy " + e.toString() + " a " + e.getNextExchengeDateString() + " przerwa " + e.getDifferenceBetweenDates() + " dni\n"
-                 : "").collect(Collectors.joining(""));
-     }
- */
+    
+    @Override
     public String getList() {
         return exchangeDatePairs.stream().map(e -> e.toString()).collect(Collectors.joining("\n"));
     }
@@ -111,14 +110,17 @@ public class ExchengeDateRepository {
         return exchangePairs;
     }
 
+    @Override
     public ExchangeDate getFirstDay() {
         return firstDay;
     }
 
+    @Override
     public ExchangeDate getLastDay() {
         return lastDay;
     }
 
+    @Override
     public List<ExchangeDatePair> getExchangeDatePairs() {
         return exchangeDatePairs;
     }
@@ -130,5 +132,12 @@ public class ExchengeDateRepository {
             return Optional.empty();
         }
 
+    }
+    
+    public Optional<Date> getEqualsOrBeforeDate(Date dateToFind) {
+    	ExchangeDatePair resultDate = exchangeDatePairs.stream()
+    	.filter((d1) -> (d1.getDate().getDate().equals(dateToFind)) 
+    			|| (d1.getDate().getDate().before(dateToFind) && (d1.getNextDate().get().getDate().after(dateToFind)))).findFirst().get();
+    	return Optional.of(resultDate.getDate().getDate());
     }
 }

@@ -5,6 +5,7 @@ import time.exchangeDate.ExchengeDateRepository;
 import time.timeInfoProvider.DatePair;
 import time.timeInfoProvider.TimeInfoProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class TimeManager {
 
     private final ExchengeDateRepository repository;
     private final TimeInfoProvider provider;
+    private Date currentDate;
 
     public TimeManager(ExchengeDateRepository repository, TimeInfoProvider provider) {
         this.repository = repository;
@@ -20,8 +22,6 @@ public class TimeManager {
     }
 
     private void simulateCurrentDate() {
-
-
 
         DatePair datePair = provider.getLastLoadedDateWithRealDate();
 
@@ -34,6 +34,15 @@ public class TimeManager {
         String dateAsTime = DateUtils.toDefaultString(instance.getTime());
         System.out.println(dateAsTime);
 
+        if(DateUtils.toDefaultDate(dateAsTime).after(repository.getLastDay().getDate()) 
+        		|| DateUtils.toDefaultDate(dateAsTime).before(repository.getFirstDay().getDate())) {
+        	setCurrentDate(repository.getFirstDay().getDate());
+        }else {
+            setCurrentDate(repository.getEqualsOrBeforeDate(DateUtils.toDefaultDate(dateAsTime)).isPresent()?
+            		repository.getEqualsOrBeforeDate(DateUtils.toDefaultDate(dateAsTime)).get():repository.getFirstDay().getDate());
+        }
+        
+        System.out.println(new SimpleDateFormat("dd-MM-yyyy").format(currentDate));
 
         // pobrać z bazy (obecnie z plików) ostatnią wczytaną datę, datę rzeczywistą w której była wczytana'
         // obliczyć ile dni minęło, tyle pominąć dni
@@ -42,6 +51,10 @@ public class TimeManager {
         // sprawdzić czy nie trafia w przerwę, jeśli trafi w przerwę, to bierze poprzedni dzień
 
 
+    }
+    
+    private void setCurrentDate(Date currentSimulatedDay) {
+    	this.currentDate = currentSimulatedDay;
     }
 
 

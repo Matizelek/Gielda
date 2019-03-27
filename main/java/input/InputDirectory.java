@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import time.exchangeDate.DateRepository;
 import time.exchangeDate.ExchangeDate;
 import time.exchangeDate.ExchengeDateRepository;
 
@@ -38,8 +39,8 @@ public class InputDirectory {
 		}
 	}
 	
-	public ExchengeDateRepository loadDirectory() {
-		ExchengeDateRepository repository = null;
+	public DateRepository loadDirectory() {
+		DateRepository repository = null;
 		try{
 			@SuppressWarnings("resource")
 			Stream<Path> entries = Files.list(Paths.get(directory));

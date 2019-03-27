@@ -15,9 +15,69 @@ public class TimeManagerTest {
 
 
     @Test
-    public void dsadas() {
+    public void should_return_2018_12_20() {
 
-        String s1 = "2019-03-10";
+        String s1 = "2019-03-20";
+        String s2 = "2018-12-18";
+
+
+        DatePair pair = new DatePair(DateUtils.toDefaultDate(s1), DateUtils.toDefaultDate(s2));
+
+        TimeInfoProvider mock = Mockito.mock(TimeInfoProvider.class);
+
+        Mockito.when(mock.getLastLoadedDateWithRealDate()).thenReturn(pair);
+
+
+        mock.getLastLoadedDateWithRealDate();
+
+        List<ExchangeDate> led = new ArrayList<>();
+
+        led.add(new ExchangeDate("2018-12-19"));
+        led.add(new ExchangeDate("2018-12-20"));
+        led.add(new ExchangeDate("2018-12-31"));
+        led.add(new ExchangeDate("2019-01-01"));
+
+        ExchengeDateRepository exchengeDateRepository = new ExchengeDateRepository(led);
+
+        TimeManager timeManager = new TimeManager(exchengeDateRepository, mock);
+
+
+    }
+    
+    @Test
+    public void shouldReturn2018_12_19() {
+
+        String s1 = "2019-01-20";
+        String s2 = "2018-12-18";
+
+
+        DatePair pair = new DatePair(DateUtils.toDefaultDate(s1), DateUtils.toDefaultDate(s2));
+
+        TimeInfoProvider mock = Mockito.mock(TimeInfoProvider.class);
+
+        Mockito.when(mock.getLastLoadedDateWithRealDate()).thenReturn(pair);
+
+
+        mock.getLastLoadedDateWithRealDate();
+
+        List<ExchangeDate> led = new ArrayList<>();
+
+        led.add(new ExchangeDate("2018-12-19"));
+        led.add(new ExchangeDate("2018-12-20"));
+        led.add(new ExchangeDate("2018-12-31"));
+        led.add(new ExchangeDate("2019-01-01"));
+
+        ExchengeDateRepository exchengeDateRepository = new ExchengeDateRepository(led);
+
+        TimeManager timeManager = new TimeManager(exchengeDateRepository, mock);
+
+
+    }
+    
+    @Test
+    public void shouldReturn2018_12_31() {
+
+        String s1 = "2019-03-15";
         String s2 = "2018-12-18";
 
 
