@@ -16,14 +16,5 @@ public class InputDirectoryTest {
     }
 
 
-    @Test
-    public void test() {
-        InputDirectory inputDirectory = new InputDirectory();
-        inputDirectory.loadDirectory();
-
-        ExchangeDate exchangeDate = new ExchangeDate("12_313_4129_akcje");
-        ExchangeDate exchangeDate2 = new ExchangeDate("2019-12-11");
-    }
-
 
 }

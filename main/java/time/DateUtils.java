@@ -29,4 +29,15 @@ public class DateUtils {
         return formatter.format(date);
     }
 
+    static public Date createHourDate(String hourString){
+        String dataFormat = "hh:mm:ss";
+        SimpleDateFormat formatter = new SimpleDateFormat(dataFormat);
+        try {
+            return formatter.parse(hourString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+    }
+
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface UserRepository {
     List<User> getUsers();
+
     User addUser(String hashedPassword, String userName);
 
     UserAccount getAccountForUser(User user);
