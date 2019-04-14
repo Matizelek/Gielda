@@ -11,7 +11,7 @@ public class Exchange {
     private final double closingPrice;
     private final double change;
     private final double volume;
-    private final int transcationAmount;
+    private final int transactionAmount;
     private final double trade;
 
     public Exchange(String name,
@@ -23,7 +23,7 @@ public class Exchange {
         double closingPrice,
         double change,
         double volume,
-        int transcationAmount,
+        int transactionAmount,
         double trade
     ) {
 
@@ -36,7 +36,7 @@ public class Exchange {
         this.closingPrice = closingPrice;
         this.change = change;
         this.volume = volume;
-        this.transcationAmount = transcationAmount;
+        this.transactionAmount = transactionAmount;
         this.trade = trade;
     }
 
@@ -77,8 +77,8 @@ public class Exchange {
         return volume;
     }
 
-    public int getTranscationAmount() {
-        return transcationAmount;
+    public int getTransactionAmount() {
+        return transactionAmount;
     }
 
     public double getTrade() {
@@ -97,7 +97,7 @@ public class Exchange {
                 ", closingPrice=" + closingPrice +
                 ", change=" + change +
                 ", volume=" + volume +
-                ", transcationAmount=" + transcationAmount +
+                ", transactionAmount=" + transactionAmount +
                 ", trade=" + trade +
                 '}';
     }

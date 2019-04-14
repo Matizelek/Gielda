@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/mockito-all-1.10.19.jar"/>
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/assertj-core-3.11.1.jar"/>
+	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/postgresql-42.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

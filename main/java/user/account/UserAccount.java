@@ -13,5 +13,10 @@ public class UserAccount {
     private Money accountBalance;
 
     private List<ExchangePurchase> exchangePurchaseList = new ArrayList<>();
+    
+    public UserAccount(int userId, Double accountBalance) {
+    	this.userId = userId;
+    	this.accountBalance = new Money(accountBalance);
+    }
 
 }

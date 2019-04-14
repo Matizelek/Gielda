@@ -16,6 +16,14 @@ public class ExchangePurchase {
         this.purchasePrice = purchasePrice;
         this.amount = amount;
     }
+    
+    public ExchangePurchase(int userId, int exchangeId, Double purchasePrice, int amount) {
+
+        this.userId = userId;
+        this.exchangeId = exchangeId;
+        this.purchasePrice = new Money(purchasePrice);
+        this.amount = amount;
+    }
 
     public int getUserId() {
         return userId;
