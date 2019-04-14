@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import exchange.Exchange;
+import csvConverter.ExchangeCsvModel;
 import time.DateUtils;
 
 public class DataRepositorySQL {
@@ -36,8 +36,8 @@ public class DataRepositorySQL {
 		return result;
 	}
 	
-	public static List<Exchange> getExchangesByDate(String data) {
-		List<Exchange> result = new ArrayList<>();
+	public static List<ExchangeCsvModel> getExchangesByDate(String data) {
+		List<ExchangeCsvModel> result = new ArrayList<>();
 		List<Long> exchangesId = new ArrayList<>();
 		try {
 			Connection conn = DbConnection.getConnection();

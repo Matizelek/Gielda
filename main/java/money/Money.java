@@ -2,7 +2,7 @@ package money;
 
 public class Money {
 
-   final private long count;
+    final private long count;
 
     public Money(double moneyValue) {
 
@@ -13,12 +13,15 @@ public class Money {
         }
         count = (long) (moneyValue * 100);
     }
-    
+
     public Money(long moneyValue) {
         count = moneyValue;
     }
 
 
+    public String toString(String currencyString) {
+        return this.toString() + " " + currencyString;
+    }
 
     @Override
     public String toString() {
@@ -33,19 +36,19 @@ public class Money {
     }
 
     public Money add(Money money2) {
-        return new Money(count+money2.count);
+        return new Money(count + money2.count);
     }
 
     public Money minus(Money money2) {
-        return new Money(count-money2.count);
+        return new Money(count - money2.count);
     }
-    
+
     public Money multiply(Double multiplier) {
-    	return new Money(Math.round(count*multiplier));
+        return new Money(Math.round(count * multiplier));
     }
 
     public Money divide(Double divisor) {
-    	return new Money(Math.round(count/divisor));
+        return new Money(Math.round(count / divisor));
     }
 
     public long getCount() {

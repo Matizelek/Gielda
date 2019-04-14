@@ -1,56 +1,57 @@
 package exchange;
 
+import money.Money;
+import time.timeOfDay.TimeOfDay;
+
+import java.util.Random;
+
 public class Exchange {
 
-    private final String name;
-    private final String isin;
-    private final String currency;
+    private final int companyId;
+    private final String companyName;
     private final double openingPrice;
     private final double maxPrice;
     private final double minPrice;
     private final double closingPrice;
-    private final double change;
-    private final double volume;
-    private final int transactionAmount;
-    private final double trade;
 
-    public Exchange(String name,
-            String ISIN,
-            String currency,
-        double openingPrice,
-        double maxPrice,
-        double minPrice,
-        double closingPrice,
-        double change,
-        double volume,
-        int transactionAmount,
-        double trade
-    ) {
-
-        this.name = name;
-        isin = ISIN;
-        this.currency = currency;
+    public Exchange(int companyId, String companyName, double openingPrice, double maxPrice, double minPrice, double closingPrice) {
+        this.companyId = companyId;
+        this.companyName = companyName;
         this.openingPrice = openingPrice;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
         this.closingPrice = closingPrice;
-        this.change = change;
-        this.volume = volume;
-        this.transactionAmount = transactionAmount;
-        this.trade = trade;
     }
 
 
-    public String getName() {
-        return name;
+    public Money getCurrentPrice(TimeOfDay timeOfDay) {
+
+        if (timeOfDay == TimeOfDay.FIRST_Q) {
+            return new Money(getOpeningPrice());
+        }
+
+        if (timeOfDay == TimeOfDay.FORTH_Q) {
+            return new Money(getClosingPrice());
+        }
+
+        boolean takeMin = new Random().nextBoolean();
+        if (takeMin) return new Money(getMinPrice());
+        else return new Money(getMaxPrice());
+
     }
 
-    public String getIsin() {
-        return isin;
+    public ExchangeSale createExchangeSale(TimeOfDay timeOfDay) {
+        Money price = getCurrentPrice(timeOfDay);
+        return new ExchangeSale(getCompanyName(), price);
     }
 
-    public String getCurrency() {
-        return currency;
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
     }
 
     public double getOpeningPrice() {
@@ -67,38 +68,5 @@ public class Exchange {
 
     public double getClosingPrice() {
         return closingPrice;
-    }
-
-    public double getChange() {
-        return change;
-    }
-
-    public double getVolume() {
-        return volume;
-    }
-
-    public int getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public double getTrade() {
-        return trade;
-    }
-
-    @Override
-    public String toString() {
-        return "Exchange{" +
-                "name='" + name + '\'' +
-                ", isin='" + isin + '\'' +
-                ", currency='" + currency + '\'' +
-                ", openingPrice=" + openingPrice +
-                ", maxPrice=" + maxPrice +
-                ", minPrice=" + minPrice +
-                ", closingPrice=" + closingPrice +
-                ", change=" + change +
-                ", volume=" + volume +
-                ", transactionAmount=" + transactionAmount +
-                ", trade=" + trade +
-                '}';
     }
 }

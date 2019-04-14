@@ -2,7 +2,7 @@ package csvConverter;
 
 public class dasdas {
 
-    static String content() {
+    public static String content() {
         return "Data,Nazwa,ISIN,Waluta,Kurs otwarcia,Kurs max,Kurs min,Kurs zamkniecia,Zmiana,Wolumen,Liczba Transakcji,Obrót,Liczba otwartych pozycji,Wartość otwartych pozycji,Cena nominalna\n" +
                 "2018-04-09,06MAGNA,PLNFI0600010,PLN,0.35,0.35,0.32,0.32,-8.57,1009,12,0.35,0,0,0\n" +
                 "2018-04-09,08OCTAVA,PLNFI0800016,PLN,0.86,0.86,0.86,0.86,0,202,11,0.17,0,0,0\n" +

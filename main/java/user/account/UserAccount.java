@@ -10,13 +10,20 @@ public class UserAccount {
 
     private int userId;
 
-    private Money accountBalance;
+    public final Money accountBalance;
 
     private List<ExchangePurchase> exchangePurchaseList = new ArrayList<>();
-    
+
     public UserAccount(int userId, Double accountBalance) {
-    	this.userId = userId;
-    	this.accountBalance = new Money(accountBalance);
+        this.userId = userId;
+        this.accountBalance = new Money(accountBalance);
     }
 
+    public List<ExchangePurchase> getExchangePurchaseList() {
+        return new ArrayList<>(exchangePurchaseList);
+    }
+
+    public void addExchangePurchase(ExchangePurchase exchangePurchase) {
+        exchangePurchaseList.add(exchangePurchase);
+    }
 }

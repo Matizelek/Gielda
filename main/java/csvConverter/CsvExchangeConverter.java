@@ -1,16 +1,13 @@
 package csvConverter;
 
-import exchange.Exchange;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CsvExchangeConverter {
-    public List<Exchange> convert(String csvContent) {
+    public List<ExchangeCsvModel> convert(String csvContent) {
 
         String lines[] = csvContent.split("\\r?\\n");
-        List<Exchange> exchanges = new ArrayList();
+        List<ExchangeCsvModel> exchanges = new ArrayList();
 
         for (int i = 0; i < lines.length; i++) {
             if (i > 0) {
@@ -22,7 +19,7 @@ public class CsvExchangeConverter {
         return exchanges;
     }
 
-    private Exchange convertLine(String line) {
+    private ExchangeCsvModel convertLine(String line) {
         String[] split = line.split(",");
 
         String name = split[1];
@@ -37,6 +34,6 @@ public class CsvExchangeConverter {
         int transcationAmount = Integer.parseInt(split[10]);
         double trade = Double.parseDouble(split[11]);
 
-        return new Exchange(name, ISIN, currency, openingPrice, maxPrice, minPrice, closingPrice, change, volume, transcationAmount, trade);
+        return new ExchangeCsvModel(name, ISIN, currency, openingPrice, maxPrice, minPrice, closingPrice, change, volume, transcationAmount, trade);
     }
 }

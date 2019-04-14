@@ -5,22 +5,22 @@ import money.Money;
 public class ExchangePurchase {
 
     private final int userId;
-    private final int exchangeId;
+    private final int companyId;
     private final Money purchasePrice;
     private final int amount;
 
-    public ExchangePurchase(int userId, int exchangeId, Money purchasePrice, int amount) {
+    public ExchangePurchase(int userId, int companyId, Money purchasePrice, int amount) {
 
         this.userId = userId;
-        this.exchangeId = exchangeId;
+        this.companyId = companyId;
         this.purchasePrice = purchasePrice;
         this.amount = amount;
     }
     
-    public ExchangePurchase(int userId, int exchangeId, Double purchasePrice, int amount) {
+    public ExchangePurchase(int userId, int companyId, Double purchasePrice, int amount) {
 
         this.userId = userId;
-        this.exchangeId = exchangeId;
+        this.companyId = companyId;
         this.purchasePrice = new Money(purchasePrice);
         this.amount = amount;
     }
@@ -29,8 +29,8 @@ public class ExchangePurchase {
         return userId;
     }
 
-    public int getExchangeId() {
-        return exchangeId;
+    public int getCompanyId() {
+        return companyId;
     }
 
     public Money getPurchasePrice() {
