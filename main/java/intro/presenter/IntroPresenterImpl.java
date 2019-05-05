@@ -34,6 +34,8 @@ public class IntroPresenterImpl implements IntroPresenter {
         UserAccount account = userRepository.getAccountForUser(user);
 
         view.setAccountState(getUserBalance(account));
+        
+        view.setLastTransactionBalance(getLastTransactionSaldo(account));
 
         List<ExchangePurchaseViewModel> viewModels = getExchangePurchaseViewModels(timeOfDay, account);
 
@@ -65,8 +67,8 @@ public class IntroPresenterImpl implements IntroPresenter {
     }
 
     private ExchangePurchaseViewModel mapToViewModel(TimeOfDay timeOfDay, Exchange exchange, ExchangePurchase purchase) {
-        String currentPrice = exchange.getCurrentPrice(timeOfDay).toString("z≈Ç");
-        String purchasePrice = purchase.getPurchasePrice().toString("z≈Ç");
+        String currentPrice = exchange.getCurrentPrice(timeOfDay).toString("z≥Ç");
+        String purchasePrice = purchase.getPurchasePrice().toString("z≥Ç");
 
         return new ExchangePurchaseViewModel(
                 exchange.getCompanyName(),
@@ -77,6 +79,11 @@ public class IntroPresenterImpl implements IntroPresenter {
 
     private String getUserBalance(UserAccount account) {
         Money balance = account.accountBalance;
-        return balance.toString("z≈Ç");
+        return balance.toString("z≥");
+    }
+    
+    private String getLastTransactionSaldo(UserAccount account) {
+        Money balance = account.accountBalance;
+        return balance.toString("z≥Ç");
     }
 }

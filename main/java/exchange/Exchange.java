@@ -9,18 +9,22 @@ public class Exchange {
 
     private final int companyId;
     private final String companyName;
+    private final String isin;
     private final double openingPrice;
     private final double maxPrice;
     private final double minPrice;
     private final double closingPrice;
+    private final int amount;
 
-    public Exchange(int companyId, String companyName, double openingPrice, double maxPrice, double minPrice, double closingPrice) {
+    public Exchange(int companyId, String companyName, String isin, double openingPrice, double maxPrice, double minPrice, double closingPrice, int amount) {
         this.companyId = companyId;
         this.companyName = companyName;
+        this.isin = isin;
         this.openingPrice = openingPrice;
         this.maxPrice = maxPrice;
         this.minPrice = minPrice;
         this.closingPrice = closingPrice;
+        this.amount = amount;
     }
 
 
@@ -69,4 +73,14 @@ public class Exchange {
     public double getClosingPrice() {
         return closingPrice;
     }
+    
+	public int getAmount() {
+		return amount;
+	}
+
+	public String getIsin() {
+		return isin;
+	}
+    
+	
 }

@@ -4,5 +4,5 @@ public interface TimeInfoProvider {
 
     DatePair getLastLoadedDateWithRealDate();
 
-
+    
 }

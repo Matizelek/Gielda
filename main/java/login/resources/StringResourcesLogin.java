@@ -7,4 +7,5 @@ public class StringResourcesLogin {
 	public static String passwordIsIncorrect = "Password is incorrect";
 	
 	public static String userNotFound = "User not found";
+	
 }

@@ -20,7 +20,7 @@ public class ExchangeManagerTest {
 
         double openingPrice = 15;
         List<Exchange> exchanges = new ArrayList<>();
-        Exchange exchange = new Exchange(1, "11BIT", openingPrice, 100, 8, 10);
+        Exchange exchange = new Exchange(1, "11BIT", "123",openingPrice, 100, 8, 10,2);
         exchanges.add(exchange);
 
 
@@ -38,7 +38,7 @@ public class ExchangeManagerTest {
 
         double closingPrice = 10;
         List<Exchange> exchanges = new ArrayList<>();
-        Exchange exchange = new Exchange(1, "11BIT", 15, 100, 8, closingPrice);
+        Exchange exchange = new Exchange(1, "11BIT","123", 15, 100, 8, closingPrice,3);
         exchanges.add(exchange);
 
 

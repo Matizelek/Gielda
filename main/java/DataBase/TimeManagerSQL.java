@@ -23,7 +23,7 @@ public class TimeManagerSQL {
 	
 	public static void setTimeManager(Date lastSimulatedDate, Connection conn) throws SQLException {
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO time_manager (last_simulated_date, last_real_date) VALUES (?, now())");
-		ps.setDate(1, (java.sql.Date) lastSimulatedDate);
+		ps.setDate(1, DbFunctions.convertUtilToSql(lastSimulatedDate));
 		ps.executeUpdate();
 	}
 	

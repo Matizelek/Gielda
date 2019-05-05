@@ -44,4 +44,10 @@ public class DbConnection {
 		}
 	}
 	
+	public static void closeConnection() throws SQLException {
+		if(conn != null || !conn.isClosed()) {
+			conn.close();
+		}
+	}
+	
 }

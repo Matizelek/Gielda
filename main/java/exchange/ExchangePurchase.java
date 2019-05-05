@@ -4,12 +4,12 @@ import money.Money;
 
 public class ExchangePurchase {
 
-    private final int userId;
+    private final Long userId;
     private final int companyId;
     private final Money purchasePrice;
     private final int amount;
 
-    public ExchangePurchase(int userId, int companyId, Money purchasePrice, int amount) {
+    public ExchangePurchase(Long userId, int companyId, Money purchasePrice, int amount) {
 
         this.userId = userId;
         this.companyId = companyId;
@@ -17,7 +17,7 @@ public class ExchangePurchase {
         this.amount = amount;
     }
     
-    public ExchangePurchase(int userId, int companyId, Double purchasePrice, int amount) {
+    public ExchangePurchase(Long userId, int companyId, Double purchasePrice, int amount) {
 
         this.userId = userId;
         this.companyId = companyId;
@@ -25,7 +25,7 @@ public class ExchangePurchase {
         this.amount = amount;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 

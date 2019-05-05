@@ -1,6 +1,5 @@
 package exchange;
 
-import money.Money;
 import time.timeOfDay.TimeOfDay;
 
 import java.util.List;

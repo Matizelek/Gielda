@@ -5,13 +5,14 @@ import user.account.UserAccount;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MemoryUserRepository implements UserRepository {
 
     private List<User> users;
     private List<UserAccount> accountList;
 
-    private static int userIdCounter = 0;
+    private static Long userIdCounter = 0l;
 
     public MemoryUserRepository(List<User> users, List<UserAccount> accountList) {
         this.users = users;
@@ -32,7 +33,7 @@ public class MemoryUserRepository implements UserRepository {
 
     @Override
     public UserAccount getAccountForUser(User user) {
-        return null;
+        return accountList.stream().filter(account -> account.getUserId().equals(user.getId())).collect(Collectors.toList()).get(0);
     }
 
     @Override

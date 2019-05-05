@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import csvConverter.ExchangeCsvModel;
+import time.exchangeDate.ExchangeDatePair;
+
 
 public class DbFunctions {
 
@@ -43,4 +46,14 @@ public class DbFunctions {
 		}
 		return result;
 	}
+	
+	public static void setCsvExchangeModel(ExchangeDatePair dateExchangePair,ExchangeCsvModel csvExchange, Connection conn) throws SQLException {
+		CompanySQL.setExchange(dateExchangePair.getDate().getDate(),csvExchange,conn);
+	}
+	
+	static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
+	
 }

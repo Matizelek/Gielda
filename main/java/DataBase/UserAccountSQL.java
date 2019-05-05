@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import user.account.UserAccount;
 
@@ -35,6 +37,16 @@ public class UserAccountSQL {
 		
 	}
 	
+	public static void updateUserAccount(Long userId, Double accountBalance, Connection conn) throws SQLException {
+		PreparedStatement ps  = conn.prepareStatement(
+				"UPDATE user_account SET account_balance = ? WHERE user_id = ? ");
+		ps.setDouble(1, accountBalance);
+		ps.setLong(2, userId);
+		ps.executeUpdate();
+		ps.close();
+		
+	}
+	
 	public static UserAccount getUserAccount(Long userId) {
 		UserAccount result = null;
 		Connection conn;
@@ -44,7 +56,7 @@ public class UserAccountSQL {
 			ps.setLong(1, userId);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				result = new UserAccount(rs.getInt("user_id"), rs.getDouble("account_balance"));
+				result = new UserAccount(rs.getLong("user_id"), rs.getDouble("account_balance"));
 			}
 			ps.close();
 			rs.close();
@@ -54,5 +66,22 @@ public class UserAccountSQL {
 		return result;
 	}
 	
+	public static List<UserAccount> getUserAccounts() {
+		List<UserAccount> result = new ArrayList<>();
+		Connection conn;
+		try {
+			conn = DbConnection.getConnection();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM user_account ");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				result.add(new UserAccount(rs.getLong("user_id"), rs.getDouble("account_balance")));
+			}
+			ps.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

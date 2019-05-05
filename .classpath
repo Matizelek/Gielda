@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/mockito-all-1.10.19.jar"/>
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/assertj-core-3.11.1.jar"/>
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/postgresql-42.2.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

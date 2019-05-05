@@ -7,15 +7,18 @@ import java.util.Objects;
 public class User {
     private final String hashedPassword;
     private final String username;
-    private final int id;
+    private Long id;
 
-    public User(String hashedPassword, String username, int id) {
+    public User(String hashedPassword, String username, Long id) {
         this.hashedPassword = hashedPassword;
         this.username = username;
         this.id = id;
     }
 
-
+    public String getNick() {
+    	String[] parts = username.split("@");
+    	return parts[0];
+    }
 
     public String getHashedPassword() {
         return hashedPassword;
@@ -25,7 +28,17 @@ public class User {
         return username;
     }
 
-    @Override
+    
+    public Long getId() {
+		return id;
+	}
+    
+    public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -35,7 +48,6 @@ public class User {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(username);
     }
 }

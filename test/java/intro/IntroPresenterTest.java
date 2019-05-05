@@ -25,8 +25,8 @@ public class IntroPresenterTest {
     public void whenStartInvokedShouldShowUserMoney() {
         IntroView view = Mockito.mock(IntroView.class);
 
-        User user = new User("dsad", "abc", 5);
-        UserAccount account = new UserAccount(5, 14.3);
+        User user = new User("dsad", "abc", 5l);
+        UserAccount account = new UserAccount(5l, 14.3);
 
 
         UserRepository repository = Mockito.mock(UserRepository.class);
@@ -39,19 +39,19 @@ public class IntroPresenterTest {
 
         presenter.start(user, TimeOfDay.FIRST_Q);
 
-        Mockito.verify(view).setAccountState("14.30 z≈Ç");
+        Mockito.verify(view).setAccountState("14.30 z≥Ç");
     }
 
     @Test
     public void whenStartInvokedShouldShowPurchaseList() {
         IntroView view = Mockito.mock(IntroView.class);
 
-        User user = new User("dsad", "abc", 5);
-        UserAccount account = new UserAccount(5, 14.3);
-        account.addExchangePurchase(new ExchangePurchase(5, 3, 15.0, 1));
+        User user = new User("dsad", "abc", 5l);
+        UserAccount account = new UserAccount(5l, 14.3);
+        account.addExchangePurchase(new ExchangePurchase(5L, 3, 15.0, 1));
 
         List<ExchangePurchaseViewModel> list = new ArrayList<>();
-        ExchangePurchaseViewModel model = new ExchangePurchaseViewModel("Test", 1, "15.00 z≈Ç", "15.00 z≈Ç");
+        ExchangePurchaseViewModel model = new ExchangePurchaseViewModel("Test", 1, "15.00 z≥Ç", "15.00 z≥Ç");
         list.add(model);
 
         UserRepository repository = Mockito.mock(UserRepository.class);
@@ -60,7 +60,7 @@ public class IntroPresenterTest {
         ExchangeRepository exchangeRepository = Mockito.mock(ExchangeRepository.class);
 
         ArrayList<Exchange> exchanges = new ArrayList<>();
-        Exchange exchange = new Exchange(3, "Test", 15.0, 23.0, 14.1, 123.0);
+        Exchange exchange = new Exchange(3, "Test", "123",15.0, 23.0, 14.1, 123.0,4);
         exchanges.add(exchange);
 
         Mockito.when(exchangeRepository.getExchanges(Mockito.anyList())).thenReturn(exchanges);

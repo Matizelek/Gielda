@@ -38,7 +38,7 @@ public class LoginModelTest {
     @Test
     public void passwordShouldBeWrong() {
         List<User> testUsers = new ArrayList<>();
-        testUsers.add(new User("abcde", "test", 0));
+        testUsers.add(new User("abcde", "test", 0l));
 
         UserRepository userRepository = new MemoryUserRepository(testUsers,new ArrayList<>());
         PasswordHasher hasher = new SHAPasswordHasher();
@@ -57,7 +57,7 @@ public class LoginModelTest {
     @Test
     public void loginShouldBeWrong() {
         List<User> testUsers = new ArrayList<>();
-        testUsers.add(new User("abcd", "testdsadas", 0));
+        testUsers.add(new User("abcd", "testdsadas", 0l));
 
         UserRepository userRepository = new MemoryUserRepository(testUsers,new ArrayList<>());
         PasswordHasher hasher = new SHAPasswordHasher();
