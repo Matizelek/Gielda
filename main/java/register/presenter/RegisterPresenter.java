@@ -1,6 +1,5 @@
 package register.presenter;
 
-import register.view.RegisterView;
 
 public interface RegisterPresenter {
 

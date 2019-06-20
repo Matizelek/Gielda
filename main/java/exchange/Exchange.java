@@ -3,6 +3,7 @@ package exchange;
 import money.Money;
 import time.timeOfDay.TimeOfDay;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class Exchange {
@@ -82,5 +83,25 @@ public class Exchange {
 		return isin;
 	}
     
+	 @Override
+		public int hashCode() {
+			return Objects.hash(companyId, companyName, isin, openingPrice, maxPrice, minPrice,  closingPrice,  amount);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) return true;
+			if (obj == null || getClass() != obj.getClass()) return false;
+			Exchange that = (Exchange) obj;
+			return Objects.equals(companyId,that.companyId) &&
+					Objects.equals(companyName, that.companyName) &&
+					Objects.equals(isin, that.isin) &&
+					Objects.equals(openingPrice, that.openingPrice) &&
+					Objects.equals(maxPrice, that.maxPrice) &&
+					Objects.equals(minPrice, that.minPrice) &&
+					Objects.equals(closingPrice, that.closingPrice) &&
+					Objects.equals(amount, that.amount);
+
+		}
 	
 }

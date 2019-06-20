@@ -1,5 +1,6 @@
 package login;
 
+@SuppressWarnings("serial")
 public class BadCredentialsException extends Exception {
     private final boolean wrongPassword;
 
@@ -8,9 +9,9 @@ public class BadCredentialsException extends Exception {
     private BadCredentialsException(boolean wrongPassword) {
         this.wrongPassword = wrongPassword;
         if (wrongPassword) {
-            message = "Niepoprawne has≈Ço";
+            message = "Niepoprawne has≥o";
         } else {
-            message = "Nie znaleziono u≈ºytkownika";
+            message = "Nie znaleziono uøytkownika";
         }
     }
 

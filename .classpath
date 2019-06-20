@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/assertj-core-3.11.1.jar"/>
 	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/postgresql-42.2.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
+	<classpathentry kind="lib" path="D:/Users/W7HP/workspace/org.swtchart_0.10.0.v20160212.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

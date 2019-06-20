@@ -27,6 +27,12 @@ public class TimeManagerSQL {
 		ps.executeUpdate();
 	}
 	
+	public static void updateTimeManager(Date lastSimulatedDate, Connection conn) throws SQLException {
+		PreparedStatement ps = conn.prepareStatement("UPDATE time_manager SET last_simulated_date = ?, last_real_date =  now()");
+		ps.setDate(1, DbFunctions.convertUtilToSql(lastSimulatedDate));
+		ps.executeUpdate();
+	}
+	
 	public static Date getLastSimulatedDate() {
 		Date result = null;
 		try {
@@ -59,4 +65,35 @@ public class TimeManagerSQL {
 		return result;
 	}
 	
+	public static void setDateFirstTime(Date currentDate) {
+		Connection conn = null;
+		try {
+			conn = DbConnection.getConnectionAndStartTransaction();
+			TimeManagerSQL.setTimeManager(currentDate, conn);
+			DbConnection.commitTransactionAndCloseConnection(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				DbConnection.closeConnectionAndRollBackTransaction(conn);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	public static void updateDate(Date dateAsTime) {
+		Connection conn = null;
+		try {
+			conn = DbConnection.getConnectionAndStartTransaction();
+			TimeManagerSQL.updateTimeManager(dateAsTime, conn);
+			DbConnection.commitTransactionAndCloseConnection(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				DbConnection.closeConnectionAndRollBackTransaction(conn);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 }

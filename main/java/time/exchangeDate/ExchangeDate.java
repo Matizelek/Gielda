@@ -8,7 +8,7 @@ import java.util.Date;
 public class ExchangeDate {
 
     final private Date exchangeDate;
-    final private String dataFormatOutput = "dd-MM-yyyy";
+    final private String dataFormatOutput = "yyyy-MM-dd";
     private SimpleDateFormat formatterOutput = new SimpleDateFormat(dataFormatOutput);
 
     public ExchangeDate(String date) {

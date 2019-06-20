@@ -3,20 +3,29 @@ package intro.view;
 import java.util.Objects;
 
 public class ExchangePurchaseViewModel {
+	private final int companyId;
     private final String companyName;
     private final int amount;
     private final String currentValue;
     private final String purchaseValue;
+    private final String currentValueMultiplyAmount;
+    private final String purchaseValueMultiplyAmount;
 
-    public ExchangePurchaseViewModel(String companyName, int amount, String currentValue, String purchaseValue) {
-
+    public ExchangePurchaseViewModel( int companyId, String companyName, int amount, String currentValue, String purchaseValue, String currentValueMultiplyAmount, String purchaseValueMultiplyAmount ) {
+    	this.companyId = companyId;
         this.companyName = companyName;
         this.amount = amount;
         this.currentValue = currentValue;
         this.purchaseValue = purchaseValue;
+        this.currentValueMultiplyAmount = currentValueMultiplyAmount;
+        this.purchaseValueMultiplyAmount = purchaseValueMultiplyAmount;
     }
 
-    public String getCompanyName() {
+    public int getCompanyId() {
+		return companyId;
+	}
+
+	public String getCompanyName() {
         return companyName;
     }
 
@@ -32,7 +41,15 @@ public class ExchangePurchaseViewModel {
         return purchaseValue;
     }
 
-    @Override
+    public String getCurrentValueMultiplyAmount() {
+		return currentValueMultiplyAmount;
+	}
+
+	public String getPurchaseValueMultiplyAmount() {
+		return purchaseValueMultiplyAmount;
+	}
+
+	@Override
     public String toString() {
         return "ExchangePurchaseViewModel{" +
                 "companyName='" + companyName + '\'' +
@@ -48,6 +65,7 @@ public class ExchangePurchaseViewModel {
         if (o == null || getClass() != o.getClass()) return false;
         ExchangePurchaseViewModel that = (ExchangePurchaseViewModel) o;
         return amount == that.amount &&
+        		companyId == that.companyId &&
                 Objects.equals(companyName, that.companyName) &&
                 Objects.equals(currentValue, that.currentValue) &&
                 Objects.equals(purchaseValue, that.purchaseValue);
@@ -55,6 +73,6 @@ public class ExchangePurchaseViewModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, amount, currentValue, purchaseValue);
+        return Objects.hash(companyId,companyName, amount, currentValue, purchaseValue);
     }
 }

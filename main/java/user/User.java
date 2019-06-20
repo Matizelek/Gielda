@@ -1,7 +1,5 @@
 package user;
 
-import hasher.PasswordHasher;
-
 import java.util.Objects;
 
 public class User {

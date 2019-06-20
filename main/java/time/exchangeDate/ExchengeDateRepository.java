@@ -140,4 +140,13 @@ public class ExchengeDateRepository implements DateRepository{
     			|| (d1.getDate().getDate().before(dateToFind) && (d1.getNextDate().get().getDate().after(dateToFind)))).findFirst().get();
     	return Optional.of(resultDate.getDate().getDate());
     }
+    
+    public Optional<Date> getEqualsOrAfterDate(Date dateToFind) {
+    	Optional<ExchangeDate> resultDate = exchangeDatePairs.stream()
+    	.filter((d1) -> (d1.getDate().getDate().equals(dateToFind)) 
+    			|| (d1.getDate().getDate().before(dateToFind) 
+    					&& (d1.getNextDate().get().getDate().after(dateToFind)))).findFirst().get().getNextDate();
+
+    	return Optional.of(resultDate.get().getDate());
+    }
 }

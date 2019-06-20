@@ -18,9 +18,12 @@ import org.eclipse.swt.widgets.Text;
 import DataBase.DbConnection;
 import DataBase.UserAccountSQL;
 import DataBase.UserSQL;
+import boxMessage.BoxMessage;
 import main.Main;
 import register.presenter.RegisterPresenter;
 import register.presenter.RegisterPresenterImpl;
+import statistic.StatisticManager;
+import time.timeManager.TimeManager;
 import user.User;
 import user.repository.MemoryUserRepository;
 import user.repository.UserRepository;
@@ -108,7 +111,7 @@ public class RegisterComposite extends Composite implements RegisterView{
 
 	@Override
 	public void showError(String errorMessage) {
-		// TODO Auto-generated method stub
+		BoxMessage.showMessage(getShell(), "B³¹d", errorMessage, SWT.ICON_WARNING);
 		
 	}
 
@@ -116,13 +119,17 @@ public class RegisterComposite extends Composite implements RegisterView{
 	public void onRegisterSuccess(User user) {
 		Connection conn = null;
 		Long id = 0l;
+		Double accountBalance = 20000.0;
 		try {
 			conn = DbConnection.getConnectionAndStartTransaction();
 			id = UserSQL.setUser(user, conn);
 			if(!id.equals(0l)) {
-				UserAccountSQL.setUserAccount(id, 2000.0, conn);
+				UserAccountSQL.setUserAccount(id,accountBalance , conn);
 				user.setId(id);
 			}
+		
+			
+			StatisticManager.addStatistic(user, accountBalance, TimeManager.getCurrentDate(), conn);
 			DbConnection.commitTransactionAndCloseConnection(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,6 +139,7 @@ public class RegisterComposite extends Composite implements RegisterView{
 				e1.printStackTrace();
 			}
 		}
+		
 		Main.openIntro(user);
 	}
 

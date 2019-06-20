@@ -7,7 +7,7 @@ public class CsvExchangeConverter {
     public List<ExchangeCsvModel> convert(String csvContent) {
 
         String lines[] = csvContent.split("\\r?\\n");
-        List<ExchangeCsvModel> exchanges = new ArrayList();
+        List<ExchangeCsvModel> exchanges = new ArrayList<>();
 
         for (int i = 0; i < lines.length; i++) {
             if (i > 0) {
@@ -20,6 +20,7 @@ public class CsvExchangeConverter {
     }
 
     private ExchangeCsvModel convertLine(String line) {
+    	line = line.replaceAll("\"", "");
         String[] split = line.split(",");
 
         String name = split[1];

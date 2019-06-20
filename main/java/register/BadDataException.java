@@ -1,5 +1,6 @@
 package register;
 
+@SuppressWarnings("serial")
 public class BadDataException extends Exception{
 	private final boolean alreadyExist;
 	
@@ -8,9 +9,9 @@ public class BadDataException extends Exception{
 	private BadDataException(boolean alreadyExist) {
 		this.alreadyExist = alreadyExist;
         if (alreadyExist) {
-            message = "Uï¿½ytkownik o takim Loginie juï¿½ istnieje";
+            message = "U¿ytkownik o takim loginie ju¿ istnieje!";
         } else {
-            message = "Hasï¿½a sï¿½ rï¿½ne";
+            message = "Has³a s¹ ró¿ne!";
         }
 	}
 

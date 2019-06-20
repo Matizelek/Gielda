@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Text;
 import DataBase.CompanySQL;
 import DataBase.UserAccountSQL;
 import DataBase.UserSQL;
+import boxMessage.BoxMessage;
 import exchange.repository.ExchangeRepository;
 import exchange.repository.MemoryExchangeRepository;
 import intro.presenter.IntroPresenter;
@@ -47,7 +48,12 @@ public class IntroComposite extends Composite implements IntroView {
 	Button btnExchangePrieview;
 	Button btnUsersPrieview;
 	Button btnBuySaleExchange;
+	Button btnStatisticPreview;
+	Button btnDetails;
+	Button btnNextSimulatedDate;
+	Button btnLogout;
 	Table table;
+	boolean isShowDetails = false;
 
 	public IntroComposite(Composite parent, int style, User mainUser, Date date) {
 		super(parent, style);
@@ -84,19 +90,11 @@ public class IntroComposite extends Composite implements IntroView {
 		textUserBalance.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		textUserBalance.setEditable(false);
 		
-		lblLastTransactionBalance = new Label(compLeft, SWT.NONE);
-		lblLastTransactionBalance.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1));
-		lblLastTransactionBalance.setText("Saldo ostatnich transakcji: ");
-		
-		textLastTransactionBalance = new Text(compLeft, SWT.BORDER);
-		textLastTransactionBalance.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
-		textLastTransactionBalance.setEditable(false);
-		
 		table = new Table(compLeft, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 4, 2));
-		
+		table.setSize(table.computeSize(SWT.DEFAULT, 200));
 			      
 		btnExchangePrieview = new Button(compRight, SWT.WRAP |SWT.PUSH);
 		GridData gd_1 = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1);
@@ -106,25 +104,21 @@ public class IntroComposite extends Composite implements IntroView {
 		btnExchangePrieview.setText("Przegl¹daj sytuacjê \nna gie³dzie");
 		btnExchangePrieview.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent e) {
+				Main.openExchangePreview(mainUser, exchangeRepository);
 			}
 		});
 		
 		btnUsersPrieview = new Button(compRight, SWT.WRAP |SWT.PUSH);
-		GridData gd_2 = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1);
-		gd_2.heightHint = 40;
-		gd_2.widthHint = 5;
-		btnUsersPrieview.setLayoutData(gd_2);
+		btnUsersPrieview.setLayoutData(gd_1);
 		btnUsersPrieview.setText("Przegl¹daj najlepiej \nzarabiaj¹cych u¿ytkowników");
 		btnUsersPrieview.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent e) {
+				Main.openUsersPreview(mainUser,userRepository,exchangeRepository);
 			}
 		});
 		
 		btnBuySaleExchange = new Button(compRight, SWT.WRAP |SWT.PUSH);
-		GridData gd_3 = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1);
-		gd_3.heightHint = 40;
-		gd_3.widthHint = 5;
-		btnBuySaleExchange.setLayoutData(gd_3);
+		btnBuySaleExchange.setLayoutData(gd_1);
 		btnBuySaleExchange.setText("Kup lub sprzedaj \nakcje");
 		btnBuySaleExchange.addMouseListener(new MouseAdapter() {
 			public void mouseUp(MouseEvent e) {
@@ -132,6 +126,57 @@ public class IntroComposite extends Composite implements IntroView {
 			}
 		});
 		
+		btnStatisticPreview = new Button(compRight, SWT.WRAP |SWT.PUSH);
+		btnStatisticPreview.setLayoutData(gd_1);
+		btnStatisticPreview.setText("Poka¿ statystyki konta");
+		btnStatisticPreview.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				Main.openStatisticPreview(mainUser);
+			}
+		});
+		
+		btnDetails = new Button(compRight, SWT.WRAP |SWT.PUSH);
+		btnDetails.setLayoutData(gd_1);
+		btnDetails.setText("Poka¿ szczegó³y akcji");
+		btnDetails.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				if(isShowDetails) {
+					presenter.showAllExchangePurchase(TimeOfDayProvider.getTimeOfDay(new Date()),mainUser);
+					btnDetails.setText("Poka¿ szczegó³y akcji");
+					isShowDetails = false;
+				}else {
+					TableItem[] items = table.getSelection();
+					if (items.length == 1) {
+						for (TableItem item : items) {
+							presenter.showExchangePurchaseDetails(TimeOfDayProvider.getTimeOfDay(new Date()),mainUser,Integer.parseInt(item.getText(0)));
+							btnDetails.setText("Poka¿ wszystkie akcje");
+							isShowDetails = true;
+						}
+					}
+				}
+			}
+		});
+		
+		btnNextSimulatedDate = new Button(compRight, SWT.WRAP |SWT.PUSH);
+		btnNextSimulatedDate.setLayoutData(gd_1);
+		btnNextSimulatedDate.setText("Nastêpny dzieñ");
+		btnNextSimulatedDate.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				presenter.nextSimulatedDate(mainUser);
+			}
+		});
+
+		btnLogout = new Button(compRight, SWT.WRAP |SWT.PUSH);
+		btnLogout.setLayoutData(gd_1);
+		btnLogout.setText("Wyloguj");
+		btnLogout.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				int ans = BoxMessage.showMessage(getShell(), "Wylogowanie", "Czy na pewno chcesz siê wylogowaæ?", SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				if(ans ==SWT.YES ) {
+					Main.openLogin();
+				}
+			}
+		});
 	}
 	
 	private void initVariables() {
@@ -145,22 +190,53 @@ public class IntroComposite extends Composite implements IntroView {
 	}
 
 	@Override
-	public void setLastTransactionBalance(String money) {
-//		textLastTransactionBalance.setText(money);
-		
-	}
-
-	@Override
 	public void showExchangePurchases(List<ExchangePurchaseViewModel> exchangePurchases) {
-		String[] titles = { "Nazwa", "Iloœæ", "Bierz¹ca Wartoœæ", "Cena Kupna" };
+		table.removeAll();
+		table.setRedraw( false );
+		while ( table.getColumnCount() > 0 ) {
+		    table.getColumns()[ 0 ].dispose();
+		}
+		String[] titles = { "Id","Nazwa", "Iloœæ", "Bierz¹ca Wartoœæ", "Bierz¹ca Wartoœæ * Iloœæ"
+				//"Cena Kupna" 
+				};
 		for (int i = 0; i < titles.length; i++) {
 			TableColumn column = new TableColumn(table, SWT.NONE);
 			column.setText(titles[i]);
 		}
+		
+		for (ExchangePurchaseViewModel exchange : exchangePurchases) {
+		      TableItem item = new TableItem(table, SWT.NULL);
+
+		      item.setText(0, String.valueOf(exchange.getCompanyId()));
+		      item.setText(1, exchange.getCompanyName());
+		      item.setText(2, String.valueOf(exchange.getAmount()));
+		      item.setText(3, exchange.getCurrentValue());
+		      item.setText(4, exchange.getCurrentValueMultiplyAmount());
+		    }
+		
+		table.setRedraw( true );
 		for (int i = 0; i < titles.length; i++) {
 			table.getColumn(i).pack();
 		}
 		
+		for (int i = 0; i < titles.length; i++) {
+			table.getColumn(i).pack();
+		}
+
+	}
+
+	@Override
+	public void showExchangePurchasesDetails(List<ExchangePurchaseViewModel> exchangePurchases) {
+		table.removeAll();
+		table.setRedraw( false );
+		while ( table.getColumnCount() > 0 ) {
+		    table.getColumns()[ 0 ].dispose();
+		}
+		String[] titles = { "Nazwa", "Iloœæ", "Bierz¹ca Wartoœæ", "Cena Kupna", "Cena Kupna * Iloœæ" };
+		for (int i = 0; i < titles.length; i++) {
+			TableColumn column = new TableColumn(table, SWT.NONE);
+			column.setText(titles[i]);
+		}
 		
 		for (ExchangePurchaseViewModel exchange : exchangePurchases) {
 		      TableItem item = new TableItem(table, SWT.NULL);
@@ -169,14 +245,17 @@ public class IntroComposite extends Composite implements IntroView {
 		      item.setText(1, String.valueOf(exchange.getAmount()));
 		      item.setText(2, exchange.getCurrentValue());
 		      item.setText(3, exchange.getPurchaseValue());
+		      item.setText(4, exchange.getPurchaseValueMultiplyAmount());
 		    }
 		
+		table.setRedraw( true );
 		for (int i = 0; i < titles.length; i++) {
 			table.getColumn(i).pack();
 		}
 		
-		table.setSize(table.computeSize(SWT.DEFAULT, 200));
-
+		for (int i = 0; i < titles.length; i++) {
+			table.getColumn(i).pack();
+		}
 	}
 	
 

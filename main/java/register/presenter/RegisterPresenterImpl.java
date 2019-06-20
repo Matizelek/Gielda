@@ -35,11 +35,16 @@ public class RegisterPresenterImpl implements RegisterPresenter {
                 registerView.onRegisterSuccess(user);
             } catch (BadDataException e) {
                 e.printStackTrace();
+                if(e.doesUserAlreadyExists()) {
+                    registerView.showError(e.getMessage());
+                }
                 if (e.isRepeatPasswordIncorrect()) {
                     registerView.showError(StringResources.passwordArentTheSameError);
                 }
             }
 
+        }else {
+        	registerView.showError(StringResources.loginIsInvalid);
         }
 
     }

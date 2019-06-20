@@ -20,7 +20,7 @@ public class ExchangeDateRepositoryTest {
         led.add(new ExchangeDate("2018-12-20"));
         led.add(new ExchangeDate("2018-12-31"));
 
-        assertThat(new ExchengeDateRepository(led).getFirstDay().toString()).isEqualTo("19-12-2018");
+        assertThat(new ExchengeDateRepository(led).getFirstDay().toString()).isEqualTo("2018-12-19");
     }
 
 
@@ -31,7 +31,7 @@ public class ExchangeDateRepositoryTest {
         led.add(new ExchangeDate("2018-12-20"));
         led.add(new ExchangeDate("2018-12-31"));
 
-        assertThat(new ExchengeDateRepository(led).getLastDay().toString()).isEqualTo("31-12-2018");
+        assertThat(new ExchengeDateRepository(led).getLastDay().toString()).isEqualTo("2018-12-31");
     }
 
     @Test
@@ -93,7 +93,8 @@ public class ExchangeDateRepositoryTest {
         }
 
 
-        @Test
+        @SuppressWarnings("unused")
+		@Test
         public void error_test () {
             List<ExchangeDate> led = new ArrayList<>();
             Throwable thrown = catchThrowable(() -> {

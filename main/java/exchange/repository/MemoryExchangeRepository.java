@@ -30,6 +30,9 @@ public class MemoryExchangeRepository implements ExchangeRepository {
 
     @Override
     public Optional<Exchange> findExchange(int exchangeId) {
-        return Optional.empty();
+    	List<Exchange> list = exchanges
+        .stream()
+        .filter(exchange -> exchange.getCompanyId() == exchangeId).collect(Collectors.toList());
+        return Optional.of(list.get(0));
     }
 }

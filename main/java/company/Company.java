@@ -11,4 +11,16 @@ public class Company {
         this.name = name;
         this.ISIN = ISIN;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getISIN() {
+		return ISIN;
+	}
 }

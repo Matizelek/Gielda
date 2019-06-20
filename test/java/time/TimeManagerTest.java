@@ -7,7 +7,6 @@ import time.exchangeDate.ExchengeDateRepository;
 import time.timeInfoProvider.DatePair;
 import time.timeInfoProvider.TimeInfoProvider;
 import time.timeManager.TimeManager;
-import time.timeOfDay.TimeOfDayProvider;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,7 +92,8 @@ public class TimeManagerTest {
     }
 
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void shouldReturn2018_12_19() {
 
         String s1 = "2019-01-20";
@@ -122,7 +122,8 @@ public class TimeManagerTest {
 
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void shouldReturn2018_12_31() {
 
         String s1 = "2019-03-15";

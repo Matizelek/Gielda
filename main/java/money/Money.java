@@ -46,6 +46,10 @@ public class Money {
     public Money multiply(Double multiplier) {
         return new Money(Math.round(count * multiplier));
     }
+    
+    public Money multiply(int multiplier) {
+        return new Money(Math.round(count * multiplier));
+    }
 
     public Money divide(Double divisor) {
         return new Money(Math.round(count / divisor));
@@ -54,4 +58,28 @@ public class Money {
     public long getCount() {
         return count;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (count ^ (count >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Money other = (Money) obj;
+		if (count != other.count)
+			return false;
+		return true;
+	}
+    
+    
 }

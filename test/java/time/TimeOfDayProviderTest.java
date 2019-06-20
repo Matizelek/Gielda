@@ -4,8 +4,6 @@ import org.junit.Test;
 import time.timeOfDay.TimeOfDay;
 import time.timeOfDay.TimeOfDayProvider;
 
-import java.util.Date;
-
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class TimeOfDayProviderTest {

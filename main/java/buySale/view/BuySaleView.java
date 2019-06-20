@@ -6,11 +6,11 @@ import user.User;
 
 public interface BuySaleView {
 
-	void onBuySuccess();
+	void onBuySuccess(ExchangeBuySaleViewModel exchangeBuySaleViewModel);
 	
 	void onBuyFail(String error);
 	
-	void onSaleSuccess();
+	void onSaleSuccess(ExchangeBuySaleViewModel exchangeBuySaleViewModel);
 	
 	void onSaleFail(String error);
 	

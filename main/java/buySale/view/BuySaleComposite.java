@@ -10,10 +10,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
+import boxMessage.BoxMessage;
 import buySale.presenter.BuySalePresenter;
 import buySale.presenter.BuySalePresenterImpl;
 import exchange.repository.ExchangeRepository;
@@ -34,6 +36,8 @@ public class BuySaleComposite extends Composite implements BuySaleView{
 	Button btnSale;
 	Button btnReturn;
 	Table table;
+	TableItem updatedItem;
+	Spinner spinner;
 	
 	
 	public BuySaleComposite(Composite parent, int style, User user, UserAccount userAccount, ExchangeRepository exchangeRepository ) {
@@ -75,10 +79,10 @@ public class BuySaleComposite extends Composite implements BuySaleView{
 				TableItem[] items = table.getSelection();
 				if (items.length == 1) {
 					for (TableItem item : items) {
+						updatedItem = item;
 						int amount= item.getText(4).equals(" - ")?0:Integer.parseInt(item.getText(4));
-						String value = item.getText(5).equals(" - ")?"0.00 z³":item.getText(5);
-						presenter.onBuy(new ExchangeBuySaleViewModel(Integer.parseInt(item.getText(6)),item.getText(0),item.getText(1),Integer.parseInt(item.getText(2)),
-								item.getText(3),amount,value), 1);
+						presenter.onBuy(new ExchangeBuySaleViewModel(Integer.parseInt(item.getText(5)),item.getText(0),item.getText(1),Integer.parseInt(item.getText(2)),
+								item.getText(3),amount), spinner.getSelection());
 					}
 				}
 			}
@@ -95,15 +99,22 @@ public class BuySaleComposite extends Composite implements BuySaleView{
 				TableItem[] items = table.getSelection();
 				if (items.length == 1) {
 					for (TableItem item : items) {
+						updatedItem = item;
 						int amount= item.getText(4).equals(" - ")?0:Integer.parseInt(item.getText(4));
-						String value = item.getText(5).equals(" - ")?"0.00 z³":item.getText(5);
-						presenter.onSale(new ExchangeBuySaleViewModel(Integer.parseInt(item.getText(6)),item.getText(0),item.getText(1),Integer.parseInt(item.getText(2)),
-								item.getText(3),amount,value), amount);
+						presenter.onSale(new ExchangeBuySaleViewModel(Integer.parseInt(item.getText(5)),item.getText(0),item.getText(1),Integer.parseInt(item.getText(2)),
+								item.getText(3),amount), spinner.getSelection());
 					}
 				}
 			}
 		});
-		//asd@o2.pl	 asd
+		
+		spinner = new Spinner(compRight, SWT.BORDER);
+	    spinner.setMinimum(1);
+	    spinner.setMaximum(100);
+	    spinner.setSelection(1);
+	    spinner.setIncrement(1);
+	    spinner.setPageIncrement(10);
+	    spinner.pack();
 		
 		btnReturn = new Button(compRight, SWT.WRAP |SWT.PUSH);
 		GridData gd_3 = new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1);
@@ -123,27 +134,26 @@ public class BuySaleComposite extends Composite implements BuySaleView{
 	}
 
 	@Override
-	public void onBuySuccess() {
-		// TODO Auto-generated method stub
-		
+	public void onBuySuccess(ExchangeBuySaleViewModel exchange) {
+		setTableItem(exchange, updatedItem);
+		updatedItem = null;
 	}
 
 	@Override
-	public void onSaleSuccess() {
-		// TODO Auto-generated method stub
-		
+	public void onSaleSuccess(ExchangeBuySaleViewModel exchange) {
+		setTableItem(exchange, updatedItem);
+		updatedItem = null;
 	}
 
 	@Override
 	public void onBuyFail(String error) {
-		// TODO Auto-generated method stub
+		BoxMessage.showMessage(getShell(), "B³¹d", error, SWT.ICON_WARNING);
 		
 	}
 
 	@Override
 	public void onSaleFail(String error) {
-		// TODO Auto-generated method stub
-		
+		BoxMessage.showMessage(getShell(), "B³¹d", error, SWT.ICON_WARNING);
 	}
 	
 	@Override
@@ -153,7 +163,7 @@ public class BuySaleComposite extends Composite implements BuySaleView{
 	
 	@Override
 	public void showExchangeBuySaleModel(List<ExchangeBuySaleViewModel> exchangeBuySale) {
-		String[] titles = { "Nazwa", "ISIN","Dostêpna Iloœæ", "Bierz¹ca Cena", "Iloœæ Zakupionych", "Cena Kupna","ID" };
+		String[] titles = { "Nazwa", "ISIN","Dostêpna Iloœæ", "Bierz¹ca Cena", "Iloœæ Zakupionych", "ID" };
 		for (int i = 0; i < titles.length; i++) {
 			TableColumn column = new TableColumn(table, SWT.NONE);
 			column.setText(titles[i]);
@@ -165,22 +175,24 @@ public class BuySaleComposite extends Composite implements BuySaleView{
 		
 		for (ExchangeBuySaleViewModel exchange : exchangeBuySale) {
 		      TableItem item = new TableItem(table, SWT.NULL);
-		      String value = " - ";
-		      if(!exchange.getUserValue().equals("0.00 z³") && !exchange.getUserValue().equals("0.00")) {
-		    	  value = exchange.getUserValue();
-		      }
-		      item.setText(0,exchange.getName());
-		      item.setText(1,exchange.getIsin());
-		      item.setText(2, String.valueOf(exchange.getAmount()));
-		      item.setText(3, exchange.getCurrentValue());
-		      item.setText(4, String.valueOf(exchange.getUserAmount()).equals("0")?" - ":String.valueOf(exchange.getUserAmount()));
-		      item.setText(5, value);
-		      item.setText(6, String.valueOf(exchange.getId()));
+		      setTableItem(exchange, item);
 		    }
 		
 		for (int i = 0; i < titles.length; i++) {
 			table.getColumn(i).pack();
 		}
 		table.setSize(table.computeSize(SWT.DEFAULT, 200));
+	}
+	
+	private void setTableItem(ExchangeBuySaleViewModel exchange,TableItem item ) {
+		if (item != null && exchange != null) {
+			item.setText(0, exchange.getName());
+			item.setText(1, exchange.getIsin());
+			item.setText(2, String.valueOf(exchange.getAmount()));
+			item.setText(3, exchange.getCurrentValue());
+			item.setText(4, String.valueOf(exchange.getUserAmount()).equals("0") ? " - "
+					: String.valueOf(exchange.getUserAmount()));
+			item.setText(5, String.valueOf(exchange.getId()));
+		}
 	}
 }

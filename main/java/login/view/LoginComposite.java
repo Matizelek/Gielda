@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 import DataBase.UserAccountSQL;
 import DataBase.UserSQL;
+import boxMessage.BoxMessage;
 import login.presenter.LoginPresenter;
 import login.presenter.LoginPresenterImpl;
 import main.Main;
@@ -92,19 +93,18 @@ public class LoginComposite extends Composite implements LoginView {
 
 		@Override
 		public void showLoading() {
-		//	progressBar3.setVisible(true);
 			
 		}
 
 		@Override
 		public void showError(String errorMessage) {
+			BoxMessage.showMessage(getShell(), "B³¹d", errorMessage, SWT.ICON_WARNING);
 			System.out.println("Error "+errorMessage);
 			
 		}
 
 		@Override
 		public void onLoginSuccess(User user) {
-			System.out.println("WELCOME SAMANTA!");
 			Main.openIntro(user);
 			
 		}
@@ -118,8 +118,6 @@ public class LoginComposite extends Composite implements LoginView {
 		@Override
 		public void showLoginIsIncorrect() {
 			System.out.println("LOGIN IS INCORRECT ");
-
-			
 		}
 
 		

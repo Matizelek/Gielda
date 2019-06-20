@@ -19,7 +19,6 @@ public class TimeOfDayProvider {
 
 
         int hour = calendar.get(Calendar.HOUR_OF_DAY) + 1;
-        int minutes = calendar.get(Calendar.MINUTE);
 
         if (hour == 24) hour = 0;
 

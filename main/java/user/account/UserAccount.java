@@ -24,6 +24,10 @@ public class UserAccount {
     public List<ExchangePurchase> getExchangePurchaseList() {
         return ExchangePurchaseSQL.getExchangePurchaseUser(userId);
     }
+    
+    public List<ExchangePurchase> getExchangePurchaseListDetail(int companyId) {
+        return ExchangePurchaseSQL.getExchangePurchaseUserDetail(userId, companyId);
+    }
 
     public void addExchangePurchase(ExchangePurchase exchangePurchase) {
         exchangePurchaseList.add(exchangePurchase);

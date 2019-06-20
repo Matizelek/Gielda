@@ -30,7 +30,11 @@ public class ExchangeDatePair {
     }
 
     public Optional<ExchangeDate> getNextDate() {
-        return Optional.of(nextDate);
+    	if(nextDate!=null) {
+            return Optional.of(nextDate);
+    	}else {
+    		return Optional.of(date);
+    	}
     }
 
     public int getDayDifferenceBetweenDates() {

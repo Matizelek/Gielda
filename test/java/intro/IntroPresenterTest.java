@@ -21,7 +21,8 @@ import java.util.List;
 public class IntroPresenterTest {
 
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void whenStartInvokedShouldShowUserMoney() {
         IntroView view = Mockito.mock(IntroView.class);
 
@@ -42,16 +43,17 @@ public class IntroPresenterTest {
         Mockito.verify(view).setAccountState("14.30 z³‚");
     }
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void whenStartInvokedShouldShowPurchaseList() {
         IntroView view = Mockito.mock(IntroView.class);
 
         User user = new User("dsad", "abc", 5l);
         UserAccount account = new UserAccount(5l, 14.3);
-        account.addExchangePurchase(new ExchangePurchase(5L, 3, 15.0, 1));
+        account.addExchangePurchase(new ExchangePurchase(1l,5L, 3, 15.0, 1));
 
         List<ExchangePurchaseViewModel> list = new ArrayList<>();
-        ExchangePurchaseViewModel model = new ExchangePurchaseViewModel("Test", 1, "15.00 z³‚", "15.00 z³‚");
+        ExchangePurchaseViewModel model = new ExchangePurchaseViewModel(1,"Test", 1, "15.00 z³‚", "15.00 z³‚","","");
         list.add(model);
 
         UserRepository repository = Mockito.mock(UserRepository.class);

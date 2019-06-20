@@ -30,7 +30,8 @@ public class MoneyTest {
 
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void error_test() {
 
 

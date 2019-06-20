@@ -6,8 +6,8 @@ public interface IntroView {
 
     void setAccountState(String money);
 
-    void setLastTransactionBalance(String money);
-
     void showExchangePurchases(List<ExchangePurchaseViewModel> exchangePurchases);
+    
+    void showExchangePurchasesDetails(List<ExchangePurchaseViewModel> exchangePurchases);
 
 }

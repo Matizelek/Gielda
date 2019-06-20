@@ -41,6 +41,9 @@ public class LoginPresenterImpl implements LoginPresenter{
 				}
 			}
 		}
+		else {
+			loginView.showError(StringResourcesLogin.loginIsInvalid);
+		}
 	}
 
 	

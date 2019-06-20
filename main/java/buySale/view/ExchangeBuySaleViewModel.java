@@ -9,16 +9,14 @@ public class ExchangeBuySaleViewModel {
     private final int amount;
     private final String currentValue;
     private final int userAmount;
-    private final String userValue;
 	
-	public ExchangeBuySaleViewModel(int id,String name, String isin,int amount, String currentValue,  int userAmount, String userValue) {
+	public ExchangeBuySaleViewModel(int id,String name, String isin,int amount, String currentValue,  int userAmount) {
 		this.id= id;
 		this.name = name;
 		this.isin = isin;
 		this.amount = amount;
 		this.currentValue = currentValue.replaceAll(" z³", "");
 		this.userAmount = userAmount;
-		this.userValue = userValue.replaceAll(" z³", "");
 	}
 
 	public int getId() {
@@ -39,10 +37,6 @@ public class ExchangeBuySaleViewModel {
 
 	public int getUserAmount() {
 		return userAmount;
-	}
-
-	public String getUserValue() {
-		return userValue;
 	}
 
 	public Double getCurrentValueDouble() {

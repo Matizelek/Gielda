@@ -13,7 +13,7 @@ public class ExchangeDateTest {
     public void should_date_return_19_12_2018() {
         String sDate1 = "2018-12-19";
 
-        assertThat(new ExchangeDate(sDate1).toString()).isEqualTo("19-12-2018");
+        assertThat(new ExchangeDate(sDate1).toString()).isEqualTo("2018-12-19");
     }
 
 
@@ -40,7 +40,8 @@ public class ExchangeDateTest {
         assertThat(datePair.getDayDifferenceBetweenDates()).isEqualTo(22);
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void should_throw_illegal_state_when_incorrect_string(){
 
         Throwable thrown = catchThrowable(() -> {

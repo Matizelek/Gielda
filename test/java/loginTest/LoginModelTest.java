@@ -16,7 +16,8 @@ import java.util.List;
 public class LoginModelTest {
 
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void userShouldBeLoggedIn() {
         PasswordHasher hasher = new SHAPasswordHasher();
 
@@ -35,7 +36,8 @@ public class LoginModelTest {
 
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void passwordShouldBeWrong() {
         List<User> testUsers = new ArrayList<>();
         testUsers.add(new User("abcde", "test", 0l));
@@ -54,7 +56,8 @@ public class LoginModelTest {
     }
 
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void loginShouldBeWrong() {
         List<User> testUsers = new ArrayList<>();
         testUsers.add(new User("abcd", "testdsadas", 0l));
